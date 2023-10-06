@@ -1,6 +1,8 @@
-import React from 'react'
-import { Button, Form, Input, InputNumber } from 'antd';
-import { signup } from '../../repository/auth';
+import React, { useEffect } from "react";
+import { Button, Form, Input, InputNumber } from "antd";
+import { signup } from "../../repository/auth";
+import { useStoreActions, useStoreState } from "../../store/hook";
+import { Link, useNavigate } from "react-router-dom";
 
 const layout = {
   labelCol: { span: 8 },
@@ -8,47 +10,56 @@ const layout = {
 };
 
 const validateMessages = {
-  required: '${label} is required!',
+  required: "${label} is required!",
   types: {
-    email: '${label} is not a valid email!',
-    number: '${label} is not a valid number!',
+    email: "${label} is not a valid email!",
+    number: "${label} is not a valid number!",
   },
   number: {
-    range: '${label} must be between ${min} and ${max}',
+    range: "${label} must be between ${min} and ${max}",
   },
-};
-
-const onFinish = (values: any) => {
-  console.log(values);
-  signup(values.user);
 };
 
 function Signup_form() {
+  const setUserInfo = useStoreActions((actions) => actions.setUserInfo);
+  const currentUser = useStoreState((state) => state.currentUser);
+  const navigate = useNavigate();
+
+  const onFinish = async (values: any) => {
+    await signup(values.user);
+    setUserInfo({ email: values.user.email, password: values.user.password, loggedIn: true });
+    navigate("/book")
+  };
   return (
     <>
-    <Form
-    {...layout}
-    name="nest-messages"
-    onFinish={onFinish}
-    style={{ maxWidth: 600 }}
-    validateMessages={validateMessages}
-  > 
-    <Form.Item name={['user', 'email']} label="Email" rules={[{ type: 'email', required: true }]}>
-      <Input />
-    </Form.Item>
-    <Form.Item name={['user', 'password']} label="Password" rules={[{ required: true, min: 6, max: 10 }]}>
-      <Input />
-    </Form.Item>
-      
+      <Form
+        {...layout}
+        name="nest-messages"
+        onFinish={onFinish}
+        style={{ maxWidth: 600 }}
+        validateMessages={validateMessages}
+      >
+        <Form.Item
+          name={["user", "email"]}
+          label="Email"
+          rules={[{ type: "email", required: true }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name={["user", "password"]}
+          label="Password"
+          rules={[{ required: true, min: 6, max: 10 }]}
+        >
+          <Input />
+        </Form.Item>
 
-    <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-      <button className='bg-[#1576ff] text-[#ffffff] p-4'>
-        Signup
-      </button>
-    </Form.Item>
-  </Form>
+        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+          <button className="bg-[#1576ff] text-[#ffffff] p-4">Signup</button>
+        </Form.Item>
+      </Form>
     </>
-  )
+  );
 }
 
-export default Signup_form
+export default Signup_form;

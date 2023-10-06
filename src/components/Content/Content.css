@@ -1,0 +1,65 @@
+/* Content.css */
+
+/* Style the container */
+.contain-table {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Style the table */
+  .striped-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .striped-table th,
+  .striped-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  /* Add a background color to the header row */
+  .striped-table th {
+    background-color: #f2f2f2;
+  }
+  
+  /* Style alternating rows */
+  .striped-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Style actions buttons */
+  .striped-table button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .striped-table button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Center text in the "Actions" column */
+  .striped-table .text-center {
+    text-align: center;
+  }
+  
+  /* Right-align text in the last column */
+  .striped-table .text-right {
+    text-align: right;
+  }
+  
+  /* Left-align text in the second-to-last column */
+  .striped-table .text-left {
+    text-align: left;
+  }
+  

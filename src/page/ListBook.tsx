@@ -1,22 +1,29 @@
-import React from 'react'
-import { useStoreState } from '../store/hook';
+import React from "react";
+import { useStoreActions, useStoreState } from "../store/hook";
+import Header from "../components/Header/Header";
+import Content from "../components/Content/Content";
+import { getBook } from "../repository/book";
 
 function ListBook() {
-    const currentUser = useStoreState((state) => state.currentUser);
-    const todos = useStoreState((state) => state.todos);
-  return (
-    <>
-    {currentUser?.loggedIn ? <div><div><h2>ListBook</h2></div>
-    <div>
-      {todos.map((todo, idx) => (
-        <div key={idx}>{todo}</div>
-      ))}
-    </div></div>
-    : <div>Not found</div>
+  const currentUser = useStoreState((state) => state.currentUser);
+  const setBook = useStoreActions((actions) => actions.setBook);
+
+  React.useEffect(() => {
+    const fetchBooks = async () => {
+        const fetchedBooks = await getBook();
+        setBook(fetchedBooks);
     }
-     
-    </>
-  )
+    
+    fetchBooks();
+  }, [])
+  return <>{currentUser?.loggedIn 
+  ? 
+  <>
+  <Header />
+  <Content/>
+  </> 
+  : 
+  <div>Login first</div>}</>;
 }
 
-export default ListBook
+export default ListBook;
