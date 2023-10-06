@@ -28,10 +28,16 @@ export interface IStore {
     currentUser: IUserState | null;
     books: IBook[];
     setUserInfo: Action<IStore, IUserState>
-    addBook: Action<IStore, IBook>;
+    addBook: Action<IStore, Partial<IBook>>;
     setBook: Action<IStore, IBook[]>;
+    removeBook: Action<IStore, string>;
+    updateBookStore: Action<IStore, PayloadReq>;
 }
 
+interface PayloadReq {
+    bookInfo: Partial<IBook>;
+    id: string;
+}
 export interface IUserState extends IUser {
     loggedIn: boolean; 
 }
@@ -41,4 +47,5 @@ export interface IBook {
     name: string;
     price: string;
     publish: boolean;
+    id: string;
 }

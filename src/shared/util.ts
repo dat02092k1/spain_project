@@ -1,9 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
-const navigate = useNavigate();
+import _ from 'lodash';
 
 export class UtilFuncs {
-    static direct(path: string) {
-         
-        navigate(path);
+    static updateObj (targetObj: any, newObj: any) {
+        return _.extend(targetObj, newObj);
     }
 }
