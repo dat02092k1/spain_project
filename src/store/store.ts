@@ -1,4 +1,4 @@
-import { action, Action, persist, createStore } from 'easy-peasy';
+import { action, persist, createStore } from 'easy-peasy';
 import { IBook, IStore } from '../types/interface';
 import { UtilFuncs } from '../shared/util';
  
@@ -25,9 +25,9 @@ export const store = createStore<IStore>({
         state.books = [...payload];        
       }),
     removeBook: action((state, payload) => {
-      state.books = state.books.filter((item: IBook) => item.id !== payload);
+      state.books = state.books.filter((item: IBook) => item._id !== payload);
     }),
     updateBookStore: action((state, payload) => {
-      state.books = state.books.map(item => (item.id === payload.id ? UtilFuncs.updateObj(item, payload.bookInfo) : item));
+      state.books = state.books.map(item => (item._id === payload._id ? UtilFuncs.updateObj(item, payload.bookInfo) : item));
     })
   });

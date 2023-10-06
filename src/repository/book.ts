@@ -1,4 +1,4 @@
-import { getFirestore, collection, getDocs, addDoc, setDoc, doc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, setDoc, doc, deleteDoc } from 'firebase/firestore';
 import { firestore } from "../firebase/firebase"
 import { IBook } from '../types/interface';
 
@@ -10,7 +10,6 @@ export const getBook = async () => {
     for (const doc of res.docs) {
         data.push({ ...doc.data(), id: doc.id });
       }
-
       return data;
 }
 

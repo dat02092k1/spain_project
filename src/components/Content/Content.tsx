@@ -26,6 +26,7 @@ function Content() {
   };
 
   const deleteBook = async (id: string) => {
+    console.log(id);
    await delBook(id);
    removeBook(id);
   }
@@ -72,7 +73,7 @@ function Content() {
                     <button>Edit</button>
                   </td>
                   <td className="text-left">
-                    <button onClick={() => deleteBook(book.id)} className="button muted-button">Delete</button>
+                    <button onClick={() => deleteBook(book._id)} className="button muted-button">Delete</button>
                   </td>
                 </tr>
               ))

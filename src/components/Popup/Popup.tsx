@@ -1,4 +1,5 @@
 import React from 'react'
+import uuid from 'react-uuid';
 import './Popup.css';
 import Input from '../InputField/Input';
 import { useStoreActions } from '../../store/hook';
@@ -19,9 +20,12 @@ function Popup(props: any) {
         setPrice(isEdit ? initialData.price : 'Add price');
         setPublish(isEdit ? initialData.publish : 'Add public');
     }, [isEdit, initialData])
+
     const handleSubmit = async (e: any) => {
         e.preventDefault(); 
+        console.log(initialData);
         const bookInfo = {
+            _id: initialData? initialData._id : uuid(),
             name: book, 
             author: author,
             price: price,
@@ -29,12 +33,12 @@ function Popup(props: any) {
         }; 
          
         if (isEdit) {
-            await updateBook(initialData.id, bookInfo); 
-            updateBookStore({bookInfo, id: initialData.id});
+            await updateBook(initialData._id, bookInfo); 
+            updateBookStore({bookInfo, _id: initialData._id});
             getBook();
           } else {
             await createBook(bookInfo);
-            // addBook(bookInfo);
+            addBook(bookInfo);
             getBook();
           }
 

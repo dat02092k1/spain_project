@@ -36,7 +36,7 @@ export interface IStore {
 
 interface PayloadReq {
     bookInfo: Partial<IBook>;
-    id: string;
+    _id: string;
 }
 export interface IUserState extends IUser {
     loggedIn: boolean; 
@@ -47,5 +47,5 @@ export interface IBook {
     name: string;
     price: string;
     publish: boolean;
-    id: string;
+    _id: string;
 }
