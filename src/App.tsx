@@ -1,6 +1,3 @@
-import { useState, useEffect } from 'react' 
-import { addSpain, getSpain, updateSpain } from './repository/spain';
-import { firestore } from './firebase/firebase';
 import { RouteType } from './types/interface';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Signin from './page/Signin';

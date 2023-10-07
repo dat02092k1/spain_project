@@ -1,4 +1,4 @@
-import { collection, getDocs, addDoc, setDoc, doc, deleteDoc, query, where, updateDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, deleteDoc, query, where, updateDoc } from 'firebase/firestore';
 import { firestore } from "../firebase/firebase"
 import { IBook } from '../types/interface';
 

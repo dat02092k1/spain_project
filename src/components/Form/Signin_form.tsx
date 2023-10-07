@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import { Checkbox, Form, Input } from "antd";
 import { FieldType, IUser } from "../../types/interface";
 import { Link, useNavigate } from "react-router-dom";

@@ -1,5 +1,3 @@
-import React from 'react'
-import { DownOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, message, Space } from 'antd';
 import { useStoreActions } from '../../store/hook';

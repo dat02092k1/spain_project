@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Form, Input, InputNumber } from "antd";
+import { Form, Input } from "antd";
 import { signup } from "../../repository/auth";
 import { useStoreActions, useStoreState } from "../../store/hook";
 import { Link, useNavigate } from "react-router-dom";
