@@ -54,6 +54,7 @@ function Signup_form() {
         onFinish={onFinish}
         style={{ maxWidth: 600 }}
         validateMessages={validateMessages}
+        className="mx-auto mt-[300px]"
       >
         <Form.Item
           name={["user", "email"]}

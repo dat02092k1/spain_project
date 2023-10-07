@@ -88,9 +88,7 @@ function Signin_form() {
                 Signin
               </button>
 
-              <button className="p-4 bg-red-500 text-[#ffffff]">
-                <Link to="/signup">Signup</Link>
-              </button>
+                <Link className="p-4 bg-red-500 text-[#ffffff]" to="/signup">Signup</Link>
             </div>
           </Form.Item>
         </Form>
