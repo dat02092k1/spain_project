@@ -3,6 +3,7 @@ import { Button, Form, Input, InputNumber } from "antd";
 import { signup } from "../../repository/auth";
 import { useStoreActions, useStoreState } from "../../store/hook";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const layout = {
   labelCol: { span: 8 },
@@ -25,10 +26,25 @@ function Signup_form() {
   const currentUser = useStoreState((state) => state.currentUser);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (currentUser?.loggedIn) {
+        navigate('/book');
+      }
+}, [currentUser?.loggedIn, navigate]);
+
   const onFinish = async (values: any) => {
-    await signup(values.user);
-    setUserInfo({ email: values.user.email, password: values.user.password, loggedIn: true });
-    navigate("/book")
+    try {
+      await signup(values.user);
+      setUserInfo({ email: values.user.email, password: values.user.password, loggedIn: true });
+    } catch (error) {
+      console.log(error);
+      return Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: `Tài khoản đã tồn tại`,
+        showConfirmButton: true,
+      });
+    }
   };
   return (
     <>

@@ -1,6 +1,5 @@
-import { getFirestore, collection, getDocs, addDoc, setDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, setDoc, doc } from 'firebase/firestore';
 import { firestore } from "../firebase/firebase"
-import { ISpain } from '../types/interface';
 import { DocumentData } from 'firebase/firestore/lite';
 
 export const getSpain = async () => {

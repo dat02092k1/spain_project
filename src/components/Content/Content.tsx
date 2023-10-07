@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useStoreActions, useStoreState } from "../../store/hook";
-import { delBook, getBook, } from "../../repository/book";
+import { delBook } from "../../repository/book";
 import { IBook } from "../../types/interface";
 import "./Content.css";
 import Popup from "../Popup/Popup";
+import Swal from "sweetalert2";
 
 function Content() {
   // const [books, setBooks] = useState<IBook[]>([]);
   const books = useStoreState((state) => state.books);
   const removeBook = useStoreActions((actions) => actions.removeBook);
-  const [isEdit, setIsEdit] = useState(false); 
-  const [editData, setEditData] = useState<IBook | null>(null); 
+  const [isEdit, setIsEdit] = useState(false);
+  const [editData, setEditData] = useState<IBook | null>(null);
 
   const [isPopupVisible, setPopupVisible] = useState(false);
 
@@ -22,35 +23,51 @@ function Content() {
   const closePopup = () => {
     setPopupVisible(false);
     setIsEdit(false); // Reset edit mode when closing the popup
-    setEditData(null); 
+    setEditData(null);
   };
 
   const deleteBook = async (id: string) => {
-    console.log(id);
-   await delBook(id);
-   removeBook(id);
-  }
+    try {
+      await delBook(id);
+      removeBook(id);
+    } catch (error) {
+      return Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Error: " + error,
+        showConfirmButton: true,
+      });
+    }
+  };
 
   const handleEdit = (data: IBook) => {
-    setIsEdit(true); 
-    setEditData(data); 
+    setIsEdit(true);
+    setEditData(data);
     setPopupVisible(true);
-  }
+  };
 
   return (
     <>
       <div className="m-5 flex justify-end">
-        <button onClick={openPopup} className="p-4 bg-red-600 text-[#ffffff] rounded">
+        <button
+          onClick={openPopup}
+          className="p-4 bg-red-600 text-[#ffffff] rounded"
+        >
           Add book
         </button>
       </div>
-      <Popup isVisible={isPopupVisible} onClose={closePopup} isEdit={isEdit} initialData={editData}/>
+      <Popup
+        isVisible={isPopupVisible}
+        onClose={closePopup}
+        isEdit={isEdit}
+        initialData={editData}
+      />
 
       <div className="contain-table overflow-x-auto">
         <table className="striped-table">
           <thead>
             <tr>
-              <th>Id</th>
+              <th>Index</th>
               <th>Book</th>
               <th>Author</th>
               <th>Price</th>
@@ -73,7 +90,12 @@ function Content() {
                     <button>Edit</button>
                   </td>
                   <td className="text-left">
-                    <button onClick={() => deleteBook(book._id)} className="button muted-button">Delete</button>
+                    <button
+                      onClick={() => deleteBook(book._id)}
+                      className="button muted-button"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))

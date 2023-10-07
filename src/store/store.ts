@@ -29,5 +29,13 @@ export const store = createStore<IStore>({
     }),
     updateBookStore: action((state, payload) => {
       state.books = state.books.map(item => (item._id === payload._id ? UtilFuncs.updateObj(item, payload.bookInfo) : item));
+    }),
+    removeState: action((state) => {
+      state.currentUser = {
+        loggedIn: false,
+        email: '',
+        password: ''
+      };
+      state.books = []; 
     })
   });

@@ -8,6 +8,7 @@ export const signup = async (user: IUser) => {
          console.log(res);
     } catch (error) {
         console.log(error);
+        throw error;
     }
 }
 
@@ -19,5 +20,6 @@ export const signin = async (user: IUser) => {
          
     } catch (error) {
         console.log('errror', error);
+        throw error;
     }
 }

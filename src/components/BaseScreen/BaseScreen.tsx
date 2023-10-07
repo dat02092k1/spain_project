@@ -14,7 +14,7 @@ function BaseScreen() {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 z-0 h-screen w-full">
+      <div className=" bottom-0 left-0 right-0 z-0 h-screen w-full">
         <picture className='h-screen'>
           <img
             src="https://png.pngtree.com/thumb_back/fh260/background/20190222/ourmid/pngtree-hand-painted-forest-trees-mountain-peak-image_48348.jpg"

@@ -32,6 +32,7 @@ export interface IStore {
     setBook: Action<IStore, IBook[]>;
     removeBook: Action<IStore, string>;
     updateBookStore: Action<IStore, PayloadReq>;
+    removeState: Action<IStore>;
 }
 
 interface PayloadReq {

@@ -2,28 +2,33 @@ import React from 'react'
 import { DownOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, message, Space } from 'antd';
+import { useStoreActions } from '../../store/hook';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+  const removeState = useStoreActions((actions) => actions.removeState);
+  const navigate = useNavigate();
+
   const onClick: MenuProps['onClick'] = ({ key }) => {
-    message.info(`Click on item ${key}`);
+    removeState();
+    navigate('/signin');
   };
   
   const items: MenuProps['items'] = [
     {
-      label: '1st menu item',
+      label: 'Logout',
       key: '1',
     },
    
   ];
 
-  
   return (
-    <header style={{ background: '#333', color: '#fff', padding: '1rem' }}>
-    <h1>How can i meet you, Nano ? </h1>
+    <header className='bg-[#333] text-[#fff] p-[1rem] flex justify-between'>
+    <h1>Nano ? </h1>
 
     <Dropdown menu={{ items, onClick }}>
     <a onClick={(e) => e.preventDefault()}>
-    <div className='absolute w-[28px] h-[28px] lg:w-[32px] lg:h-[32px] right-3 top-3 cursor-pointer opacity-50'>
+    <div className=' w-[28px] h-[28px]  right-3 top-3 cursor-pointer '>
             <img src="https://static2.vieon.vn/voting/static/media/user.5ff4e35663aa679785c5.png" alt="" /> 
     </div>
     </a>

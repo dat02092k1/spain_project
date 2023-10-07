@@ -1,9 +1,10 @@
 import React, {useEffect} from "react";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Checkbox, Form, Input } from "antd";
 import { FieldType, IUser } from "../../types/interface";
 import { Link, useNavigate } from "react-router-dom";
 import { signin } from "../../repository/auth";
 import { useStoreActions, useStoreState } from "../../store/hook";
+import Swal from 'sweetalert2';
 
 function Signin_form() {
   const setUserInfo = useStoreActions((actions) => actions.setUserInfo);
@@ -29,6 +30,13 @@ function Signin_form() {
       setUserInfo({ email: user.email, password: user.password, loggedIn: true });
     } catch (error) {
       console.log(error);
+      return Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: `Tên đăng nhập hoặc mật khẩu không đúng`,
+        showConfirmButton: true,
+      });
+
     }
   };
 

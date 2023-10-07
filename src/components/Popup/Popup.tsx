@@ -4,13 +4,14 @@ import './Popup.css';
 import Input from '../InputField/Input';
 import { useStoreActions } from '../../store/hook';
 import { createBook, getBook, updateBook } from '../../repository/book';
+import Swal from 'sweetalert2';
 
 function Popup(props: any) {
     const { isVisible, onClose, isEdit, initialData } = props;
-    const [book, setBook] = React.useState(isEdit ? initialData.name : 'Add bôk');
-    const [author, setAuthor] = React.useState(isEdit ? initialData.author : 'Add author');
-    const [price, setPrice] = React.useState(isEdit ? initialData.price : 'Add price');
-    const [publish, setPublish] = React.useState(isEdit ? initialData.publish : 'Add public');
+    const [book, setBook] = React.useState(isEdit ? initialData.name : '');
+    const [author, setAuthor] = React.useState(isEdit ? initialData.author : '');
+    const [price, setPrice] = React.useState(isEdit ? initialData.price : '');
+    const [publish, setPublish] = React.useState(isEdit ? initialData.publish : '');
     const addBook = useStoreActions((actions) => actions.addBook);
     const updateBookStore = useStoreActions((actions) => actions.updateBookStore);
 
@@ -23,8 +24,18 @@ function Popup(props: any) {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault(); 
-        console.log(initialData);
-        const bookInfo = {
+         
+        if (!book || !author || !price || !publish) {
+          return Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: 'All fields are required.',
+            showConfirmButton: true,
+          });
+        }
+
+        try {
+          const bookInfo = {
             _id: initialData? initialData._id : uuid(),
             name: book, 
             author: author,
@@ -47,6 +58,14 @@ function Popup(props: any) {
         setAuthor('');
         setPrice('');
         setPublish('');
+        } catch (error) {
+          return Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: 'Error: ' + error,
+            showConfirmButton: true,
+          });
+        }
      }
   return (
     <>

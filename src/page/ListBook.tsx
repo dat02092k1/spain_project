@@ -3,6 +3,7 @@ import { useStoreActions, useStoreState } from "../store/hook";
 import Header from "../components/Header/Header";
 import Content from "../components/Content/Content";
 import { getBook } from "../repository/book";
+import { Link } from "react-router-dom";
 
 function ListBook() {
   const currentUser = useStoreState((state) => state.currentUser);
@@ -23,7 +24,8 @@ function ListBook() {
   <Content/>
   </> 
   : 
-  <div>Login first</div>}</>;
+  
+  <Link to="/signin">Signin first</Link>}</>;
 }
 
 export default ListBook;
