@@ -17,7 +17,7 @@ export const getBook = async () => {
     }
 }
 
-export const createBook = async (book: Partial<IBook>) => {
+export const createBook = async (book: IBook) => {
   try {
     await addDoc(collection(firestore, "book"), {
       ...book

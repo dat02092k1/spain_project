@@ -1,4 +1,3 @@
-import React from 'react'
 import BaseScreen from '../components/BaseScreen/BaseScreen'
 import Signin_form from '../components/Form/Signin_form'
 

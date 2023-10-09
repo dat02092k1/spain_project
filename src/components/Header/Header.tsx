@@ -1,5 +1,5 @@
 import type { MenuProps } from 'antd';
-import { Dropdown, message, Space } from 'antd';
+import { Dropdown, } from 'antd';
 import { useStoreActions } from '../../store/hook';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ function Header() {
   const removeState = useStoreActions((actions) => actions.removeState);
   const navigate = useNavigate();
 
-  const onClick: MenuProps['onClick'] = ({ key }) => {
+  const onClick: MenuProps['onClick'] = () => {
     removeState();
     navigate('/signin');
   };
@@ -21,8 +21,8 @@ function Header() {
   ];
 
   return (
-    <header className='bg-[#333] text-[#fff] p-[1rem] flex justify-between'>
-    <h1>Nano ? </h1>
+    <header className='bg-[#6d28d9] text-[#fff] p-[1rem] flex justify-between'>
+    <h1>Han Namja ? </h1>
 
     <Dropdown menu={{ items, onClick }}>
     <a onClick={(e) => e.preventDefault()}>

@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Signin from './page/Signin';
 import Signup from './page/Signup';
 import ListBook from './page/ListBook';
+import ShopBook from './page/ShopBook';
+import ImageUpload from './components/Test/ImageUpload';
 
 function App() {
   const ROUTE: Array<RouteType> = [
@@ -19,6 +21,16 @@ function App() {
     {
       path: "/book",
       component: <ListBook />,
+      isPublic: true,
+    },
+    {
+      path: "/shop",
+      component: <ShopBook/>,
+      isPublic: true,
+    },
+    {
+      path: "/test",
+      component: <ImageUpload/>,
       isPublic: true,
     }
   ];

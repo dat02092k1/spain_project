@@ -28,7 +28,7 @@ export interface IStore {
     currentUser: IUserState | null;
     books: IBook[];
     setUserInfo: Action<IStore, IUserState>
-    addBook: Action<IStore, Partial<IBook>>;
+    addBook: Action<IStore, IBook>;
     setBook: Action<IStore, IBook[]>;
     removeBook: Action<IStore, string>;
     updateBookStore: Action<IStore, PayloadReq>;
@@ -49,4 +49,5 @@ export interface IBook {
     price: string;
     publish: boolean;
     _id: string;
+    imgUrl: string;
 }

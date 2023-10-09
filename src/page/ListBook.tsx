@@ -4,8 +4,10 @@ import Header from "../components/Header/Header";
 import Content from "../components/Content/Content";
 import { getBook } from "../repository/book";
 import { Link } from "react-router-dom";
+import Spinner from "../components/Spinner/Spinner";
 
 function ListBook() {
+  const books = useStoreState((state) => state.books);
   const currentUser = useStoreState((state) => state.currentUser);
   const setBook = useStoreActions((actions) => actions.setBook);
 
@@ -17,11 +19,13 @@ function ListBook() {
     
     fetchBooks();
   }, [])
+
   return <>{currentUser?.loggedIn 
   ? 
   <>
   <Header />
-  <Content/>
+  <Content books={books} />
+  {!books && <Spinner/>}
   </> 
   : 
   

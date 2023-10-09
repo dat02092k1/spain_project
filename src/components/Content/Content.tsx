@@ -1,16 +1,18 @@
 import { useState } from "react";
-import { useStoreActions, useStoreState } from "../../store/hook";
+import { useStoreActions } from "../../store/hook";
 import { delBook } from "../../repository/book";
 import { IBook } from "../../types/interface";
 import "./Content.css";
 import Popup from "../Popup/Popup";
 import Swal from "sweetalert2";
+import Spinner from "../Spinner/Spinner";
+import { IBookProp } from "../../types/propsType";
 
-function Content() {
+function Content(props: IBookProp) {
   // const [books, setBooks] = useState<IBook[]>([]);
-  const books = useStoreState((state) => state.books);
+  const books = props.books;
   const removeBook = useStoreActions((actions) => actions.removeBook);
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
   const [editData, setEditData] = useState<IBook | null>(null);
 
   const [isPopupVisible, setPopupVisible] = useState(false);
@@ -48,7 +50,10 @@ function Content() {
 
   return (
     <>
-      <div className="m-5 flex justify-end">
+    {
+      books.length > 0 ? (
+        <>
+        <div className="m-5 flex justify-end">
         <button
           onClick={openPopup}
           className="p-4 bg-red-600 text-[#ffffff] rounded"
@@ -107,8 +112,13 @@ function Content() {
           </tbody>
         </table>
       </div>
+      </>
+      ) : (<div>
+        <Spinner/>
+      </div>)
+    }
     </>
-  );
+  )
 }
 
 export default Content;
