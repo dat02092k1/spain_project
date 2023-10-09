@@ -28,7 +28,7 @@ function Signup_form() {
 
   useEffect(() => {
     if (currentUser?.loggedIn) {
-        navigate('/book');
+        navigate('/shop');
       }
 }, [currentUser?.loggedIn, navigate]);
 
@@ -72,7 +72,7 @@ function Signup_form() {
         </Form.Item>
 
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-          <button className="bg-[#1576ff] text-[#ffffff] p-4">Signup</button>
+          <button className="bg-[#1576ff] text-[#ffffff] p-4 rounded">Signup</button>
         </Form.Item>
       </Form>
     </>

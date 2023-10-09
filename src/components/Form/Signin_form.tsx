@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { signin } from "../../repository/auth";
 import { useStoreActions, useStoreState } from "../../store/hook";
 import Swal from 'sweetalert2';
+import './Antd.css';
 
 function Signin_form() {
   const setUserInfo = useStoreActions((actions) => actions.setUserInfo);
@@ -14,7 +15,7 @@ function Signin_form() {
   useEffect(() => {
     if (currentUser?.loggedIn) {
         console.log('User has logged in:', currentUser?.loggedIn);
-        navigate('/book');
+        navigate('/shop');
       }
 }, [currentUser?.loggedIn, navigate]);
 
@@ -48,7 +49,7 @@ function Signin_form() {
     <>
       <div className="mt-[300px]">
         <Form
-          className="m-auto"
+          className="m-auto text-[#fff]"
           name="basic"
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
@@ -79,16 +80,16 @@ function Signin_form() {
             valuePropName="checked"
             wrapperCol={{ offset: 8, span: 16 }}
           >
-            <Checkbox>Remember me</Checkbox>
+            <Checkbox className="text-[#fff]">Remember me</Checkbox>
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <div className="flex gap-3">
-              <button className="bg-[#1576ff] text-[#ffffff] p-4">
+              <button className="bg-[#1576ff] text-[#ffffff] p-4 rounded">
                 Signin
               </button>
 
-                <Link className="p-4 bg-red-500 text-[#ffffff]" to="/signup">Signup</Link>
+                <Link className="p-4 bg-red-500 text-[#ffffff] rounded" to="/signup">Signup</Link>
             </div>
           </Form.Item>
         </Form>
