@@ -4,6 +4,7 @@ import Popup from "../Popup/Popup";
 import { delBook } from "../../repository/book";
 import { useStoreActions } from "../../store/hook";
 import Swal from "sweetalert2";
+import "./BookContainer.css";
 
 function BookContainer(props: any) {
   const { books } = props;
@@ -108,7 +109,7 @@ function BookContainer(props: any) {
               )}
             </div>
             <h2 className="mb-2 text-lg font-semibold text-gray-900">
-              <a href="#" className="text-gray-900 hover:text-purple-700">
+              <a href="" className="text-gray-900 hover:text-purple-700">
                 {book.name}
               </a>
             </h2>
@@ -117,7 +118,7 @@ function BookContainer(props: any) {
             </p>
             <p className="mb-3 text-sm font-normal text-gray-500">
               <a
-                href="#"
+                href=""
                 className="font-medium text-gray-900 hover:text-purple-700"
               >
                 {book.publish ? "Đã phát hành" : "Chưa phát hành"}
@@ -127,20 +128,7 @@ function BookContainer(props: any) {
           </div>
         ))}
       </div>
-      <div className="flex flex-col items-center justify-center mt-20 space-x-0 space-y-2 md:space-x-2 md:space-y-0 md:flex-row">
-        <a
-          href="#"
-          className="w-full rounded-full btn btn-light btn-xl md:w-auto"
-        >
-          Previous Page
-        </a>
-        <a
-          href="#"
-          className="w-full rounded-full btn btn-light btn-xl md:w-auto"
-        >
-          Next Page
-        </a>
-      </div>
+      
     </section>
   );
 }

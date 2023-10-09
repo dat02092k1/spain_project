@@ -7,6 +7,7 @@ import { createBook, updateBook } from "../../repository/book";
 import Swal from "sweetalert2";
 import { IPropupType } from "../../types/propsType";
 import axios from "axios";
+import Spinner from "../Spinner/Spinner";
 
 function Popup(props: IPropupType) {
   const { isVisible, onClose, isEdit, initialData } = props;
@@ -34,7 +35,7 @@ function Popup(props: IPropupType) {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    if (!book || !author || !price || !publish) {
+    if (!book || !author || !price) {
       return Swal.fire({
         icon: "error",
         title: "Error!",
@@ -116,7 +117,7 @@ function Popup(props: IPropupType) {
                   onChange={handleImageUpload}
                 />
                 {loading ? (
-                  <p>Uploading...</p>
+                  <Spinner />
                 ) : image ? (
                   <div>
                     <img
