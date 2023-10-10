@@ -4,8 +4,7 @@ import { IUser } from "../types/interface";
 
 export const signup = async (user: IUser) => {
     try {
-        const res = await createUserWithEmailAndPassword(auth, user.email, user.password);
-         console.log(res);
+        await createUserWithEmailAndPassword(auth, user.email, user.password);
     } catch (error) {
         console.log(error);
         throw error;
@@ -13,9 +12,7 @@ export const signup = async (user: IUser) => {
 }
 
 export const signin = async (user: IUser) => {
-    try { 
-        console.log(user);
-        
+    try {         
         return await signInWithEmailAndPassword(auth, user.email, user.password);
          
     } catch (error) {

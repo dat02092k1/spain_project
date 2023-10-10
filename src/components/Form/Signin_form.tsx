@@ -29,7 +29,7 @@ function Signin_form() {
       };
 
       const res = await signin(user);
-      console.log(res);
+       
       setUserInfo({
         email: user.email,
         password: user.password,

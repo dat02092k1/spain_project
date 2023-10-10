@@ -6,10 +6,10 @@ import { useStoreActions } from "../../store/hook";
 import { createBook, updateBook } from "../../repository/book";
 import Swal from "sweetalert2";
 import { IPropupType } from "../../types/propsType";
-import axios from "axios";
 import Spinner from "../Spinner/Spinner";
 import { motion } from "framer-motion";
 import { UtilConstants } from "../../shared/constant";
+import { uploadImg } from "../../repository/service";
 
 function Popup(props: IPropupType) {
   const { isVisible, onClose, isEdit, initialData } = props;
@@ -22,8 +22,6 @@ function Popup(props: IPropupType) {
   const [image, setImage] = React.useState(isEdit ? initialData?.imgUrl : "");
   const [loading, setLoading] = React.useState(false);
   let popupRef = React.useRef(null);
-
-  const cloudName = import.meta.env.VITE_REACT_APP_CLOUDINARY_CLOUD_NAME;
 
   const addBook = useStoreActions((actions) => actions.addBook);
   const updateBookStore = useStoreActions((actions) => actions.updateBookStore);
@@ -97,15 +95,16 @@ function Popup(props: IPropupType) {
     formData.append("upload_preset", "wv59iewr");
 
     try {
-      const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-        formData
-      );
-
-      setImage(res.data.secure_url);
+      setImage(await uploadImg(formData));
       setLoading(false);
     } catch (error) {
       console.log(error);
+      return Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Error on uploading! Try uploadoading again ",
+        showConfirmButton: true,
+      });
     }
   };
   return (
