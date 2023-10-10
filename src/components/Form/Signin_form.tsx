@@ -1,11 +1,13 @@
-import {useEffect} from "react";
+import { useEffect } from "react";
 import { Checkbox, Form, Input } from "antd";
 import { FieldType, IUser } from "../../types/interface";
 import { Link, useNavigate } from "react-router-dom";
 import { signin } from "../../repository/auth";
 import { useStoreActions, useStoreState } from "../../store/hook";
-import Swal from 'sweetalert2';
-import './Antd.css';
+import Swal from "sweetalert2";
+import "./Antd.css";
+import { motion } from "framer-motion";
+import { UtilConstants } from "../../shared/constant";
 
 function Signin_form() {
   const setUserInfo = useStoreActions((actions) => actions.setUserInfo);
@@ -14,10 +16,10 @@ function Signin_form() {
 
   useEffect(() => {
     if (currentUser?.loggedIn) {
-        console.log('User has logged in:', currentUser?.loggedIn);
-        navigate('/shop');
-      }
-}, [currentUser?.loggedIn, navigate]);
+      console.log("User has logged in:", currentUser?.loggedIn);
+      navigate("/shop");
+    }
+  }, [currentUser?.loggedIn, navigate]);
 
   const onFinish = async (values: any) => {
     try {
@@ -25,19 +27,22 @@ function Signin_form() {
         email: values.username,
         password: values.password,
       };
-    
+
       const res = await signin(user);
       console.log(res);
-      setUserInfo({ email: user.email, password: user.password, loggedIn: true });
+      setUserInfo({
+        email: user.email,
+        password: user.password,
+        loggedIn: true,
+      });
     } catch (error) {
       console.log(error);
       return Swal.fire({
-        icon: 'error',
-        title: 'Error!',
+        icon: "error",
+        title: "Error!",
         text: `Tên đăng nhập hoặc mật khẩu không đúng`,
         showConfirmButton: true,
       });
-
     }
   };
 
@@ -47,7 +52,13 @@ function Signin_form() {
 
   return (
     <>
-      <div className="mt-[300px]">
+      <motion.div
+        className="mt-[100px]"
+        variants={UtilConstants.variants}
+        initial="initial"
+        animate="visible"
+        exit="exit"
+      >
         <Form
           className="m-auto text-[#fff]"
           name="basic"
@@ -89,11 +100,16 @@ function Signin_form() {
                 Signin
               </button>
 
-                <Link className="p-4 bg-red-500 text-[#ffffff] rounded" to="/signup">Signup</Link>
+              <Link
+                className="p-4 bg-red-500 text-[#ffffff] rounded"
+                to="/signup"
+              >
+                Signup
+              </Link>
             </div>
           </Form.Item>
         </Form>
-      </div>
+      </motion.div>
     </>
   );
 }

@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Form, Input } from "antd";
 import { signup } from "../../repository/auth";
 import { useStoreActions, useStoreState } from "../../store/hook";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { motion } from "framer-motion";
+import { UtilConstants } from "../../shared/constant";
 
 const layout = {
   labelCol: { span: 8 },
@@ -28,19 +30,23 @@ function Signup_form() {
 
   useEffect(() => {
     if (currentUser?.loggedIn) {
-        navigate('/shop');
-      }
-}, [currentUser?.loggedIn, navigate]);
+      navigate("/shop");
+    }
+  }, [currentUser?.loggedIn, navigate]);
 
   const onFinish = async (values: any) => {
     try {
       await signup(values.user);
-      setUserInfo({ email: values.user.email, password: values.user.password, loggedIn: true });
+      setUserInfo({
+        email: values.user.email,
+        password: values.user.password,
+        loggedIn: true,
+      });
     } catch (error) {
       console.log(error);
       return Swal.fire({
-        icon: 'error',
-        title: 'Error!',
+        icon: "error",
+        title: "Error!",
         text: `Tài khoản đã tồn tại`,
         showConfirmButton: true,
       });
@@ -48,33 +54,43 @@ function Signup_form() {
   };
   return (
     <>
-      <Form
-        {...layout}
-        name="nest-messages"
-        onFinish={onFinish}
-        style={{ maxWidth: 600 }}
-        validateMessages={validateMessages}
-        className="mx-auto mt-[300px]"
+      <motion.div
+        className="mt-[100px]"
+        initial="initial"
+        animate="visible"
+        exit="exit"
+        variants={UtilConstants.variants}
       >
-        <Form.Item
-          name={["user", "email"]}
-          label="Email"
-          rules={[{ type: "email", required: true }]}
+        <Form
+          {...layout}
+          name="nest-messages"
+          onFinish={onFinish}
+          style={{ maxWidth: 600 }}
+          validateMessages={validateMessages}
+          className="mx-auto mt-[300px]"
         >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name={["user", "password"]}
-          label="Password"
-          rules={[{ required: true, min: 6, max: 10 }]}
-        >
-          <Input />
-        </Form.Item>
+          <Form.Item
+            name={["user", "email"]}
+            label="Email"
+            rules={[{ type: "email", required: true }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name={["user", "password"]}
+            label="Password"
+            rules={[{ required: true, min: 6, max: 10 }]}
+          >
+            <Input />
+          </Form.Item>
 
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-          <button className="bg-[#1576ff] text-[#ffffff] p-4 rounded">Signup</button>
-        </Form.Item>
-      </Form>
+          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+            <button className="bg-[#1576ff] text-[#ffffff] p-4 rounded">
+              Signup
+            </button>
+          </Form.Item>
+        </Form>
+      </motion.div>
     </>
   );
 }
