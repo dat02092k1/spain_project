@@ -5,6 +5,7 @@ import { delBook } from "../../repository/book";
 import { useStoreActions } from "../../store/hook";
 import Swal from "sweetalert2";
 import "./BookContainer.css";
+import { motion } from "framer-motion";
 
 function BookContainer(props: any) {
   const { books } = props;
@@ -57,7 +58,7 @@ function BookContainer(props: any) {
         showConfirmButton: true,
       });
     }
-  }
+  };
   return (
     <section className="px-4 py-24 mx-auto max-w-7xl">
       <h2 className="mb-2 text-3xl font-extrabold leading-tight text-gray-900">
@@ -67,6 +68,7 @@ function BookContainer(props: any) {
         Comes directly from the desk of engineers, creators and managers at
         Skcript.
       </p>
+
       <div className="m-5 flex justify-end">
         <button
           onClick={openPopup}
@@ -83,14 +85,20 @@ function BookContainer(props: any) {
         initialData={editData}
       />
 
-      <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+      <motion.div
+        className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3"
+        animate={{ rotate: 360 }}
+        transition={{ type: "spring", stiffness: 50, velocity: 2 }}
+      >
         {books.map((book: IBook, index: number) => (
           <div key={index}>
-            <div
+            <motion.div
               onDoubleClick={() => handleEdit(book)}
               className="hover:cursor-pointer relative"
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={() => handleMouseLeave(index)}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.8 }}
             >
               <img
                 src={book.imgUrl ?? "https://kutty.netlify.app/brand/og.png"}
@@ -107,7 +115,7 @@ function BookContainer(props: any) {
                   <i className="fa-regular fa-trash-can"></i>
                 </button>
               )}
-            </div>
+            </motion.div>
             <h2 className="mb-2 text-lg font-semibold text-gray-900">
               <a href="" className="text-gray-900 hover:text-purple-700">
                 {book.name}
@@ -127,8 +135,7 @@ function BookContainer(props: any) {
             </p>
           </div>
         ))}
-      </div>
-      
+      </motion.div>
     </section>
   );
 }

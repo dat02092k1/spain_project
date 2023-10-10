@@ -17,6 +17,7 @@
     "dotenv": "^16.3.1",
     "easy-peasy": "^6.0.3",
     "firebase": "^10.4.0",
+    "framer-motion": "^10.16.4",
     "kutty": "^0.6.0",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",

@@ -8,6 +8,8 @@ import Swal from "sweetalert2";
 import { IPropupType } from "../../types/propsType";
 import axios from "axios";
 import Spinner from "../Spinner/Spinner";
+import { motion } from "framer-motion";
+import { UtilConstants } from "../../shared/constant";
 
 function Popup(props: IPropupType) {
   const { isVisible, onClose, isEdit, initialData } = props;
@@ -19,6 +21,8 @@ function Popup(props: IPropupType) {
   );
   const [image, setImage] = React.useState(isEdit ? initialData?.imgUrl : "");
   const [loading, setLoading] = React.useState(false);
+  let popupRef = React.useRef(null);
+
   const cloudName = import.meta.env.VITE_REACT_APP_CLOUDINARY_CLOUD_NAME;
 
   const addBook = useStoreActions((actions) => actions.addBook);
@@ -32,6 +36,15 @@ function Popup(props: IPropupType) {
     setImage(isEdit ? initialData?.imgUrl : "");
   }, [isEdit, initialData]);
 
+  React.useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (popupRef.current && !popupRef?.current?.contains(e.target)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+  });
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -98,8 +111,14 @@ function Popup(props: IPropupType) {
   return (
     <>
       {isVisible ? (
-        <div className="popup z-[100000000]">
-          <div className="popup-content">
+        <motion.div
+          className=" popup z-[100000000]"
+          variants={UtilConstants.variants}
+          initial="initial"
+          animate="visible"
+          exit="exit"
+        >
+          <div className="popup-content" ref={popupRef}>
             <div className="header flex justify-end">
               <button onClick={onClose}>X</button>
             </div>
@@ -120,10 +139,12 @@ function Popup(props: IPropupType) {
                   <Spinner />
                 ) : image ? (
                   <div>
-                    <img
+                    <motion.img
                       src={image}
                       alt="Uploaded"
                       style={{ maxWidth: "70%" }}
+                      whileHover={{ scale: 0.8 }}
+                      whileTap={{ scale: 0.8 }}
                     />
                   </div>
                 ) : null}
@@ -141,7 +162,7 @@ function Popup(props: IPropupType) {
               </div>
             </form>
           </div>
-        </div>
+        </motion.div>
       ) : (
         <div></div>
       )}

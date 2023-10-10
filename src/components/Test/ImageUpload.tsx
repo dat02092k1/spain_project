@@ -1,52 +1,24 @@
-import { useState } from 'react';
-const cloudName = import.meta.env.VITE_REACT_APP_CLOUDINARY_CLOUD_NAME;
-const apiKey = import.meta.env.VITE_REACT_APP_CLOUDINARY_API_KEY;
+import { motion } from "framer-motion"
+import { UtilConstants } from '../../shared/constant'
 
-const ImageUpload = () => {
-  const [image, setImage] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const handleImageUpload = async (e: any) => {
-    setLoading(true);
-    const formData = new FormData();
-    formData.append('file', e.target.files[0]);
-    formData.append('upload_preset', 'wv59iewr'); // Replace with your Cloudinary upload preset
-
-    try {
-      const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-        {
-          method: 'POST',
-          body: formData,
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        setImage(data.secure_url);
-      } else {
-        console.error('Failed to upload image');
-      }
-    } catch (error) {
-      console.error('Error uploading image:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+function ImageUpload() {
+  
 
   return (
-    <div>
-      <input type="file" accept="image/*" onChange={handleImageUpload} />
-      {loading ? (
-        <p>Uploading...</p>
-      ) : image ? (
-        <div>
-          <p>Image uploaded successfully!</p>
-          <img src={image} alt="Uploaded" style={{ maxWidth: '100%' }} />
-        </div>
-      ) : null}
-    </div>
-  );
-};
+    <header>
+      <motion.div 
+            onClick={(e) => e.stopPropagation()}
+            className="modal"
+            variants={UtilConstants.variants}
+            initial='initial'
+            animate='visible'
+            exit='exit'
+> 
+      <h4>Animated Button</h4>
+    <div>Move your mouse over the button to see the effect</div>
+      </motion.div>
+    </header>
+  )
+}
 
-export default ImageUpload;
+export default ImageUpload
